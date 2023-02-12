@@ -1,18 +1,28 @@
+/* Libreria especial para que las casillas "recuerden" que hayan sido clickeadas */
 import { useState } from 'react';
 
+/* Se define la funcion que imprimira en pantalla los cuadros del tablero
+   con un accesorio para saber si cada recuadro tendra una X o O o estara vacio
+   entre corchetes para renderizar la variable JS*/
 function Square({ value, onSquareClick }) {
   return (
+    /* Boton que se imprimira en el tablero con una funcion para detectar
+       cuando se hace click sobre el */
     <button className="square" onClick={onSquareClick}>
       {value}
     </button>
   );
 }
 
+/* Funcion que dibuja el tablero de juego */
 function Board({ xIsNext, squares, onPlay }) {
+  /* Función donde se define en que orden apareceran las X y O empezando con las X y despues las O */
   function handleClick(i) {
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
+
+    /* Condicion que comprueba que un cuadro ya este clickeado  */
     const nextSquares = squares.slice();
     if (xIsNext) {
       nextSquares[i] = 'X';
@@ -21,7 +31,7 @@ function Board({ xIsNext, squares, onPlay }) {
     }
     onPlay(nextSquares);
   }
-
+  /* Se define al ganador verificando si hay mas turnos y al ganador si es X o O o no hay ninguno segun corresponda */
   const winner = calculateWinner(squares);
   let status;
   if (winner) {
@@ -30,6 +40,8 @@ function Board({ xIsNext, squares, onPlay }) {
     status = 'Next player: ' + (xIsNext ? 'X' : 'O');
   }
 
+  /* agrupando los cuadros en filas de 3 y dandole valor a cada uno de los cuadros del tablero, conectando la funcion de valor 
+  a cada uno para saber si el cuadro es nulo o es X o O*/
   return (
     <>
       <div className="status">{status}</div>
@@ -52,12 +64,17 @@ function Board({ xIsNext, squares, onPlay }) {
   );
 }
 
+/* Se define una función accesible desde los otros archivos con el nombre "Game" y el valor que tendran los cuadrados del tablero*/
 export default function Game() {
   const [history, setHistory] = useState([Array(9).fill(null)]);
+  /* guarda en una variable el estado del tablero que esta viendo el usuario */
   const [currentMove, setCurrentMove] = useState(0);
+  /* le da funcion a los botones que muestran los pasos anteriores o reinician el juego */
   const xIsNext = currentMove % 2 === 0;
+  /* muestra en pantalla el movimiento actual seleccionado */
   const currentSquares = history[currentMove];
 
+  /* funcion para seguir el juego a partir de algun punto anterior que el usuario quiera repetir */
   function handlePlay(nextSquares) {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
     setHistory(nextHistory);
@@ -82,6 +99,7 @@ export default function Game() {
     );
   });
 
+  /* funcion para mostrar una lista de movimientos pasados */
   return (
     <div className="game">
       <div className="game-board">
@@ -93,7 +111,7 @@ export default function Game() {
     </div>
   );
 }
-
+/* Matriz que se usa en la funcion para determinar al ganador */
 function calculateWinner(squares) {
   const lines = [
     [0, 1, 2],
