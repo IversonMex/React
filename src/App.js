@@ -1,4 +1,4 @@
-/* Libreria especial para que las casillas "recuerden" que hayan sido clickeadas */
+/* Libreria especial para que las casillas "recuerden" una accion */
 import { useState } from 'react';
 
 /* Se define la funcion que imprimira en pantalla los cuadros del tablero
