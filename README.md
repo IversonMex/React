@@ -1,4 +1,4 @@
-:paperclip: :paperclip: :paperclip: Comentarios Hechos por Yasif Joaquin Alcalá Can 8°A ISC :paperclip: :paperclip: :paperclip:
+:paperclip: :paperclip: Comentarios Hechos por Yasif Joaquin Alcalá Can 8°A ISC :paperclip: :paperclip:
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
